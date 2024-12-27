@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeLeaf.com">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Automobiles Project</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    
+    <link rel="icon" href="https://www.pitlaneautomotive.ca/wp-content/uploads/2017/02/pitlane-automotive-car-favicon-1024x1024.png">
+    <!-- Bootstrap CSS -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    />
+    
+    <style>/* Global Reset */
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: #0c0c0c;
+    color: white;
+}
+
+/* Navbar Styling */
+.navbar {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 999;
+    backdrop-filter: blur(10px);
+    background: rgba(10, 10, 10, 0.8);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 3rem;
+}
+
+/* Logo */
+.logo a {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #ff4500;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.logo a:hover {
+    color: #f9a602;
+}
+
+/* Navigation Links */
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 2rem; /* Space between links */
+}
+
+.nav-links li a {
+    font-size: 1rem;
+    text-decoration: none;
+    color: white;
+    text-transform: uppercase;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.nav-links li a::after {
+    content: '';
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    background: #ff4500;
+    bottom: -5px;
+    left: 0;
+    transition: width 0.3s ease;
+}
+
+.nav-links li a:hover {
+    color: #ff4500;
+}
+
+.nav-links li a:hover::after {
+    width: 100%;
+}
+    
+
+.icon {
+    font-size: 1.2rem;
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.icon:hover {
+    color: #ff4500;
+}
+
+/* Hamburger Menu */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 0.4rem;
+    cursor: pointer;
+}
+
+.hamburger span {
+    width: 30px;
+    height: 3px;
+    background: white;
+    transition: all 0.3s ease;
+}
+
+/* Responsive Design for Mobile */
+@media (max-width: 850px) {
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background: rgba(10, 10, 10, 0.95);
+        width: 100%;
+        padding: 1rem 0;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .nav-links.active li {
+        display: flex;
+        margin-left: 6%;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+
+    .icon-links {
+        gap: 1rem; /* Adjusted gap for smaller screens */
+    }
+}
+
+
+/* Slider Styling */
+		
+        .carousel-item img,iframe {
+            object-fit: cover;
+            margin-top:100px;
+            height: 80vh;
+            width: 100%;
+        }
+
+        .carousel-caption {
+            background: rgba(0, 0, 0, 0.3); /* Transparent background for captions */
+            padding: 15px 30px;
+            border-radius: 10px;
+        }
+
+        .carousel-caption h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .carousel-caption p {
+            font-size: 1.2rem;
+            color: #ddd;
+        }
+
+        .carousel-caption a {
+            background-color: #ff4500;
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-caption a:hover {
+            background-color: #f9a602;
+        }
+        
+        
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a1a; /* Dark futuristic background */
+            color: #fff;
+        }
+        
+       	
+       	
+		/* add new car button*/
+		.new-car-btn{
+			display: inline-block;
+		    margin: 80px 15% 40px;
+		    text-decoration: none;
+		    background: linear-gradient(135deg, rgba(255, 69, 0, 0.9), rgba(255, 99, 71, 0.9));
+		    padding: 12px 35px;
+		    border-radius: 30px;
+		    font-size: 1.2rem;
+		    color: #fff;
+		    font-weight: bold;
+		    text-align: center;
+		    box-shadow: 0 4px 15px rgba(255, 69, 0, 0.8);
+		    transition: all 0.3s ease-in-out;
+		    cursor: pointer;
+		}
+	
+		.new-car-btn:hover {
+		    background: linear-gradient(135deg, rgba(255, 99, 71, 0.9), rgba(255, 69, 0, 0.9));
+		    box-shadow: 0 0 20px rgba(255, 99, 71, 0.9);
+		}
+
+        .card {
+            border: none;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background: linear-gradient(145deg, #222222, #333333);
+        }
+
+        .card img {
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 2px solid #ff4500;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(255, 69, 0, 0.5);
+        }
+
+        .card-body {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #f9a602;
+        }
+
+        .card-text {
+            font-size: 1rem;
+            color: #ccc;
+        }
+
+        .btn {
+            background-color: #ff4500;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #f9a602;
+        }
+
+
+        
+        /* Footer Styling */
+footer {
+    background: #1a1a1a; /* Matches website background */
+    color: #ffffff; /* Text color for better readability */
+    font-family: 'Arial', sans-serif;
+}
+
+footer .footer-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 80px 10%; /* Subtle divider line */
+}
+
+footer .footer-section {
+    flex: 1;
+    margin: 20px;
+    min-width: 250px; /* Ensure proper layout on smaller screens */
+}
+
+footer .footer-section h4 {
+    font-size: 1.2rem;
+    color: #f2f2f2; /* Slightly lighter color for headings */
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    border-bottom: 2px solid #f9a602; /* Accent color for heading underline */
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+footer .footer-section p,
+footer .footer-section ul {
+    font-size: 0.95rem;
+    color: #ccc;
+    line-height: 1.6;
+}
+
+footer .footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+footer .footer-section ul li {
+    margin: 10px 0;
+}
+
+footer .footer-section ul li a {
+    text-decoration: none;
+    color: #ccc;
+    transition: color 0.3s ease;
+}
+
+footer .footer-section ul li a:hover {
+    color: #f9a602; /* Highlight color for hover */
+}
+
+footer .social-icons {
+    display: flex;
+    justify-content: flex-start;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+footer .social-icon {
+    text-decoration: none;
+    color: #ccc;
+    font-size: 1.5rem;
+    transition: color 0.3s ease;
+}
+
+footer .social-icon:hover {
+    color: #f9a602; /* Matches the heading accent color */
+}
+
+footer .footer-bottom {
+    text-align: center;
+    padding: 15px 0;
+    background: #111; /* Slightly darker footer-bottom */
+    color: #bbb;
+    font-size: 0.85rem;
+    border-top: 1px solid #333;
+}
+
+footer .footer-bottom p {
+    margin: 0;
+}
+        
+        
+    </style>
+</head>
+<body>
+    <header class="navbar">
+        <div class="navbar-container">
+            <!-- Logo Section -->
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="logo">
+                <a href="#">AutoLux</a>
+            </div>
+            <!-- Navigation Links -->
+            <ul class="nav-links">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Models</a></li>
+                <li><a href="#">Technology</a></li>
+                <li><a href="#">Experience</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+            
+        </div>
+    </header>
+    
+    
+    <!-- Slider Section -->
+    <div id="carSlider" class="carousel slide" data-bs-ride="carousel">
+        <!-- Dots/Indicators -->
+        <div class="carousel-indicators">
+            <button
+                type="button"
+                data-bs-target="#carSlider"
+                data-bs-slide-to="0"
+                class="active"
+                aria-current="true"
+                aria-label="Slide 1"
+            ></button>
+            <button
+                type="button"
+                data-bs-target="#carSlider"
+                data-bs-slide-to="1"
+                aria-label="Slide 2"
+            ></button>
+            <button
+                type="button"
+                data-bs-target="#carSlider"
+                data-bs-slide-to="2"
+                aria-label="Slide 3"
+            ></button>
+        </div>
+
+        <!-- Slides -->
+        <div class="carousel-inner">
+            <!-- Slide 1 -->
+            <div class="carousel-item active">
+            <!-- https://wallpaperaccess.com/full/970398.jpg-->
+                <img src="https://wallpapercave.com/wp/wp7541598.jpg" alt="Luxury Car" >
+                <div class="carousel-caption text-center">
+                    <h1>Luxury Redefined</h1>
+                    <p>Experience unmatched comfort and performance.</p>
+                    <a href="#card_id">Explore Models</a>
+                </div>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="carousel-item">
+                <img src="https://www.hdcarwallpapers.com/download/bugatti_chiron_pur_sport_2020_4k-3840x2160.jpg" alt="Sports Car">
+                <div class="carousel-caption text-center">
+                    <h1>Unleash the Speed</h1>
+                    <p>Feel the adrenaline with cutting-edge design and power.</p>
+                    <a href="#card_id">Discover More</a>
+                </div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="carousel-item">
+                <img src="https://images.hdqwalls.com/download/nio-ep9-electric-car-pic-3840x2160.jpg" alt="Electric Car">
+                <div class="carousel-caption text-center">
+                    <h1>Eco-Friendly Elegance</h1>
+                    <p>Drive the future with sustainable luxury.</p>
+                    <a href="#card_id">Learn More</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Arrows -->
+        <button
+            class="carousel-control-prev"
+            type="button"
+            data-bs-target="#carSlider"
+            data-bs-slide="prev"
+        >
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button
+            class="carousel-control-next"
+            type="button"
+            data-bs-target="#carSlider"
+            data-bs-slide="next"
+        >
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+    
+    <a href="/cars/new" class="new-car-btn">Add New Car</a>
+    
+    
+    <div class="container" id="card_id" style="padding: 20px;">
+    <div class="row g-4">
+        <!-- Thymeleaf Dynamic Cards -->
+        <div class="col-md-4" th:each="car : ${index}">
+            <div class="card shadow-lg" style="border-radius: 20px; overflow: hidden; background: transparent; border: 1px solid rgba(255, 69, 0, 0.9); color: white;">
+                <img th:src="${car.image}" th:alt="${car.name}" class="card-img-top" style="height: 250px; object-fit: cover; border-bottom: 1px solid rgba(255, 69, 0, 0.9);">
+                <div class="card-body" style="padding: 20px;">
+                    <h5 class="card-title" th:text="${car.name}" style="font-size: 1.8rem; font-weight: bold; color: rgba(255, 69, 0, 0.9); text-shadow: 0 0 10px rgba(255, 69, 0, 0.9), 0 0 20px rgba(255, 99, 71, 0.9);"></h5>
+                    <p class="card-text" style="font-size: 1.3rem; line-height: 1.6; margin-bottom: 15px;">
+                        <strong style="color: #ffffff;">Price:</strong> <span th:text="${car.price}" style="color: #e0e0e0;"></span>
+                    </p>
+                    <p class="card-text" style="font-size: 1.1rem; line-height: 1.6; margin-bottom: 15px;">
+                        <strong style="color: #ffffff;">Specifications:</strong><br>
+                        <span style="color: #e0e0e0;">HorsePower:</span> <span th:text="${car.horsepower}"></span><br>
+                        <span style="color: #e0e0e0;">Engine:</span> <span th:text="${car.engine}"></span><br>
+                        <span style="color: #e0e0e0;">Top Speed:</span> <span th:text="${car.topspeed}"></span>
+                    </p>
+                    <p class="card-text" th:text="${car.description}" style="font-size: 1rem; color: #c4c4c4; line-height: 1.4; margin-bottom: 20px;"></p>
+                    <div class="d-flex justify-content-between mt-4">
+                        <a th:href="@{/cars/update/{id}(id=${car.id})}" class="btn btn-primary" style="background: rgba(255, 69, 0, 0.9); border: none; box-shadow: 0 0 10px rgba(255, 69, 0, 0.9); font-weight: bold; padding: 12px 24px; font-size: 1.1rem;">Update</a>
+                        <a th:href="@{/cars/delete/{id}(id=${car.id})}" class="btn btn-danger" style="background: #111111; border: 1px solid rgba(255, 69, 0, 0.9); color: rgba(255, 69, 0, 0.9); box-shadow: 0 0 10px rgba(255, 99, 71, 0.9); font-weight: bold; padding: 12px 24px; font-size: 1.1rem;">Delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Message for empty list -->
+    <div th:if="${index == null or index.isEmpty()}" class="text-center py-5">
+        <p class="text-muted" style="color: rgba(255, 69, 0, 0.9); text-shadow: 0 0 10px rgba(255, 69, 0, 0.9); font-size: 1.5rem;">No cars available to display.</p>
+    </div>
+</div>
+    
+    
+    <!--footer section-->
+    
+    <footer>
+    <div class="footer-container">
+        <div class="footer-section about">
+            <h4>About Us</h4>
+            <p>AutoLux is your ultimate destination for luxury and innovative cars. Our mission is to redefine your driving experience.</p>
+        </div>
+        <div class="footer-section links">
+            <h4>Quick Links</h4>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Models</a></li>
+                <li><a href="#">Technology</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </div>
+        <div class="footer-section follow">
+            <h4>Follow Us</h4>
+            <div class="social-icons">
+                <a href="https://facebook.com" class="social-icon"><i class="fab fa-facebook"></i></a>
+                <a href="https://twitter.com" class="social-icon"><i class="fab fa-twitter"></i></a>
+                <a href="https://instagram.com" class="social-icon"><i class="fab fa-instagram"></i></a>
+                <a href="https://linkedin.com" class="social-icon"><i class="fab fa-linkedin"></i></a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2024 AutoLux. All rights reserved.</p>
+    </div>
+	</footer>
+
+    
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    
+    
+    <script>const hamburger = document.querySelector('.hamburger');
+    const navLinks = document.querySelector('.nav-links');
+
+    hamburger.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        hamburger.classList.toggle('toggle');
+    });
+</script>
+</body>
+</html>
